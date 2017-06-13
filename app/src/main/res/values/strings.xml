@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MovieApplication</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_register">No account yet? register here</string>
 </resources>

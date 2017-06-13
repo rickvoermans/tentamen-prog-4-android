@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.marcu.movieapplication.presentation.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/textViewEmailaddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="63dp"
+        android:contentDescription="logo"
+        android:minHeight="150dp"
+        android:minWidth="150dp"
+        android:src="" />
+
+    <TextView
+        android:id="@+id/textViewEmailaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextEmailaddress"
+        android:layout_alignStart="@+id/editTextEmailaddress"
+        android:text="@string/login_email"
+        android:textColor="#000"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/editTextEmailaddress"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewPassword"
+        android:layout_centerHorizontal="true"
+        android:inputType="textEmailAddress"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextPassword"
+        android:layout_alignStart="@+id/editTextEmailaddress"
+        android:text="@string/login_password"
+        android:textColor="#000"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkboxRememberEmail"
+        android:layout_alignStart="@+id/textViewPassword"
+        android:inputType="textPassword"
+        android:textSize="16dp" />
+
+    <CheckBox
+        android:id="@+id/checkboxRememberEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSignIn"
+        android:layout_alignStart="@+id/editTextPassword"
+        android:layout_marginBottom="37.5dp"
+        android:text="remember email" />
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewNoAccountYet"
+        android:layout_centerHorizontal="true"
+        android:text="sign in" />
+
+    <TextView
+        android:id="@+id/textViewNoAccountYet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="18dp"
+        android:text="@string/login_register"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+</RelativeLayout>
