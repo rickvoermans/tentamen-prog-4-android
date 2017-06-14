@@ -7,23 +7,6 @@
     tools:context="com.example.marcu.movieapplication.presentation.LoginActivity">
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_above="@+id/textViewEmailaddress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="63dp"
-        android:contentDescription="logo"
-        android:minHeight="150dp"
-        android:minWidth="150dp"
-        android:src="" />
-
-    <TextView
         android:id="@+id/textViewEmailaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
