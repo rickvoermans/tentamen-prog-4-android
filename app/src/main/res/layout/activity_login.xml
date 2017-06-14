@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.marcu.movieapplication.presentation.LoginActivity">
+    tools:context="com.example.marcu.movieapplication.presentation.activities.LoginActivity">
 
     <TextView
         android:id="@+id/textViewEmailaddress"
@@ -39,19 +39,11 @@
         android:id="@+id/editTextPassword"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkboxRememberEmail"
+        android:layout_above="@+id/buttonSignIn"
         android:layout_alignStart="@+id/textViewPassword"
         android:inputType="textPassword"
-        android:textSize="16dp" />
-
-    <CheckBox
-        android:id="@+id/checkboxRememberEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSignIn"
-        android:layout_alignStart="@+id/editTextPassword"
-        android:layout_marginBottom="37.5dp"
-        android:text="remember email" />
+        android:textSize="16dp"
+        android:layout_marginBottom="200dp"/>
 
     <Button
         android:id="@+id/buttonSignIn"
