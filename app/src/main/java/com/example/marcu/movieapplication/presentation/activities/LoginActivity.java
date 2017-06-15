@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
     private final String tag = getClass().getSimpleName();
 
     public static final String JWT_STR = "jwt_str";
-    public static final String USER = "user";
+    public static final String USER = "sub";
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
