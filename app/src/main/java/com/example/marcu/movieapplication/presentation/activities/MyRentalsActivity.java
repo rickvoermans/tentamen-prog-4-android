@@ -64,6 +64,7 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
         Log.i(TAG, "oncreate");
         getRentals();
         listViewFilms = (ListView) findViewById(R.id.rentalsListView);
+        listViewFilms.setOnItemClickListener(this);
         deleteRental = (ImageView)findViewById(R.id.delete_rental_id);
     }
 
