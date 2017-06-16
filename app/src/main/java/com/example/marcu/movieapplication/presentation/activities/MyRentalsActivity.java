@@ -12,8 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.dataaccess.RentalsGetTask;
@@ -30,13 +34,14 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
  * Created by Wallaard on 16-6-2017.
  */
 
-public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener {
+public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
     private final String TAG = getClass().getSimpleName();
     private ArrayList<Film> films = new ArrayList<>();
     private RentalsAdapter rentalsAdapter;
     private ListView listViewFilms;
 
     private TextView textViewUserId;
+    private ImageView deleteRental;
     private String jwt;
     private int user;
     private SharedPreferences prefs;
@@ -59,6 +64,7 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
         Log.i(TAG, "oncreate");
         getRentals();
         listViewFilms = (ListView) findViewById(R.id.rentalsListView);
+        deleteRental = (ImageView)findViewById(R.id.delete_rental_id);
     }
 
     public void getRentals(){
@@ -103,5 +109,11 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
 
         NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Film film = films.get(position);
+        Toast.makeText(this, "Deleting rental.." + film.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
