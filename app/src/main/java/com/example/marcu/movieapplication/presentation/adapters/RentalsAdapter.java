@@ -1,6 +1,8 @@
 package com.example.marcu.movieapplication.presentation.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +13,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
+import com.example.marcu.movieapplication.dataaccess.RentalDeleteTask;
 import com.example.marcu.movieapplication.domain.Film;
 
 import java.util.ArrayList;
+
+import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.JWT_STR;
+import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.USER;
 
 /**
  * Created by Wallaard on 16-6-2017.
  */
 
-public class RentalsAdapter extends BaseAdapter {
+public class RentalsAdapter extends BaseAdapter implements RentalDeleteTask.SuccessListener{
     private Context context;
     private LayoutInflater layoutInflater;
     private ArrayList<Film> films;
+    private String jwt;
+    private final int user;
 
     public RentalsAdapter(Context context, LayoutInflater layoutInflater, ArrayList<Film> films) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.films = films;
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        this.jwt = prefs.getString(JWT_STR, "");
+        this.user = prefs.getInt(USER, 0);
     }
 
     @Override
@@ -67,6 +79,7 @@ public class RentalsAdapter extends BaseAdapter {
         }
 
         Film f = films.get(position);
+
         viewHolder.textViewTitle.setText("Title: "+f.getTitle());
         viewHolder.textViewLength.setText("Length: "+f.getLength());
         viewHolder.textViewRating.setText("Rating: "+f.getRating());
@@ -78,6 +91,7 @@ public class RentalsAdapter extends BaseAdapter {
                 Log.i("Rental Adapter", "Removed: " + films.get(position).getTitle());
                 films.remove(position);
                 notifyDataSetChanged();
+                deleteRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
             }
         });
 
@@ -90,5 +104,20 @@ public class RentalsAdapter extends BaseAdapter {
         TextView textViewLength;
         TextView textViewRating;
         ImageView removeRental;
+    }
+
+    private void deleteRental(String apiUrl) {
+        String[] urls = new String[]{apiUrl, jwt};
+        RentalDeleteTask task = new RentalDeleteTask(this);
+        task.execute(urls);
+    }
+
+    @Override
+    public void successfulDeleted(Boolean successful) {
+        if (successful) {
+            Log.i("RentalsAdapter", "Product removed");
+        } else {
+            Toast.makeText(context, "Product couldn't be removed", Toast.LENGTH_SHORT).show();
+        }
     }
 }

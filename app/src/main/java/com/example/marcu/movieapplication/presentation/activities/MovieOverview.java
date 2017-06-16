@@ -125,7 +125,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Film f = films.get(position);
-        loan("https://programmeren-opdracht.herokuapp.com/api/v1/rental/"+1+"/"+f.getInventory_id());
+        loan("https://programmeren-opdracht.herokuapp.com/api/v1/rental/"+user+"/"+f.getInventory_id());
     }
 
 }
