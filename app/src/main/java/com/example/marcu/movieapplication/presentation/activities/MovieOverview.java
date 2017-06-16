@@ -125,6 +125,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Film f = films.get(position);
+        loan("http://10.0.2.2:8080/api/v1/rental/"+1+"/"+f.getInventory_id());
     }
 
 }

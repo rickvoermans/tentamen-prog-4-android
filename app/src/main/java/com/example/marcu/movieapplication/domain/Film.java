@@ -9,6 +9,15 @@ public class Film {
     private int length;
     private int releaseyear;
     private String rating;
+    private int inventory_id;
+
+    public int getInventory_id() {
+        return inventory_id;
+    }
+
+    public void setInventory_id(int inventory_id) {
+        this.inventory_id = inventory_id;
+    }
 
     public String getTitle() {
         return title;
