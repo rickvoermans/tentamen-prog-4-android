@@ -67,7 +67,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
 
     public void getFilms(){
         FilmsGetTask filmsGetTask = new FilmsGetTask(this);
-        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/films/1",jwt};
+        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/films/available",jwt};
         filmsGetTask.execute(urls);
     }
 
