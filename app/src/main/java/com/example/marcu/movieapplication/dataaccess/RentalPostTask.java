@@ -48,13 +48,9 @@ public class RentalPostTask extends AsyncTask<String, Void, Boolean> {
 
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             httpConnection.setRequestMethod("POST");
-
-            JSONObject jsonParam = new JSONObject();
-
-            Log.i(TAG, String.valueOf(jsonParam));
+            httpConnection.setRequestProperty("X-Access-Token", params[1]);
 
             DataOutputStream localDataOutputStream = new DataOutputStream(httpConnection.getOutputStream());
-            localDataOutputStream.writeBytes(jsonParam.toString());
             localDataOutputStream.flush();
             localDataOutputStream.close();
             httpConnection.connect();

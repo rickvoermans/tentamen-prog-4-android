@@ -89,9 +89,9 @@ public class RentalsAdapter extends BaseAdapter implements RentalDeleteTask.Succ
             @Override
             public void onClick(View v) {
                 Log.i("Rental Adapter", "Removed: " + films.get(position).getTitle());
+                deleteRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
                 films.remove(position);
                 notifyDataSetChanged();
-                deleteRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
             }
         });
 

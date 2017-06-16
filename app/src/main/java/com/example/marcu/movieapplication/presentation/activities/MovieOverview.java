@@ -108,7 +108,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
     private void loan(String url){
-        String[] urls = new String[]{url};
+        String[] urls = new String[]{url, jwt};
         RentalPostTask task = new RentalPostTask(this);
         task.execute(urls);
     }
