@@ -1,6 +1,7 @@
 package com.example.marcu.movieapplication.presentation.activities;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -8,22 +9,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
-import com.example.marcu.movieapplication.dataaccess.FilmsGetTask;
-import com.example.marcu.movieapplication.dataaccess.RegisterPostTask;
-import com.example.marcu.movieapplication.dataaccess.RentalPostTask;
+import com.example.marcu.movieapplication.dataaccess.RentalsGetTask;
 import com.example.marcu.movieapplication.domain.Film;
-import com.example.marcu.movieapplication.presentation.adapters.FilmsAdapter;
+import com.example.marcu.movieapplication.presentation.adapters.RentalsAdapter;
 import com.example.marcu.movieapplication.presentation.drawer.Drawer;
 
 import java.util.ArrayList;
@@ -31,51 +26,53 @@ import java.util.ArrayList;
 import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.JWT_STR;
 import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.USER;
 
-public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnFilmAvailable, RentalPostTask.PutSuccessListener, AdapterView.OnItemClickListener,NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Created by Wallaard on 16-6-2017.
+ */
+
+public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener {
+    private final String TAG = getClass().getSimpleName();
+    private ArrayList<Film> films = new ArrayList<>();
+    private RentalsAdapter rentalsAdapter;
+    private ListView listViewFilms;
 
     private TextView textViewUserId;
     private String jwt;
     private int user;
     private SharedPreferences prefs;
 
-    private ArrayList<Film> films = new ArrayList<>();
-    private FilmsAdapter filmsAdapter;
-    private ListView listViewFilms;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_films);
+        setContentView(R.layout.activity_my_rentals);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setCheckedItem(R.id.nav_movie_overview);
+        navigationView.setCheckedItem(R.id.nav_rentals);
 
-        setupToolbar(this, "Home");
+        setupToolbar(this, "My rentals");
         setupDrawer(this);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         jwt = prefs.getString(JWT_STR, "");
         user = prefs.getInt(USER, 0);
 
-        Log.i("jwt", jwt);
-
-        getFilms();
-        listViewFilms = (ListView) findViewById(R.id.filmsListview);
-        listViewFilms.setOnItemClickListener(this);
+        Log.i(TAG, "oncreate");
+        getRentals();
+        listViewFilms = (ListView) findViewById(R.id.rentalsListView);
     }
 
-    public void getFilms(){
-        FilmsGetTask filmsGetTask = new FilmsGetTask(this);
-        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/films/available",jwt};
-        filmsGetTask.execute(urls);
+    public void getRentals(){
+        RentalsGetTask rentalsGetTask = new RentalsGetTask(this);
+        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/rental/1",jwt};
+        Log.i(TAG, "methode wordt aangeroepen");
+        rentalsGetTask.execute(urls);
     }
 
     @Override
-    public void OnFilmAvailable(Film film) {
+    public void OnRentalAvailable(Film film) {
         films.add(film);
-        filmsAdapter = new FilmsAdapter(this,getLayoutInflater(),films);
-        listViewFilms.setAdapter(filmsAdapter);
+        rentalsAdapter = new RentalsAdapter(this,getLayoutInflater(),films);
+        listViewFilms.setAdapter(rentalsAdapter);
     }
 
     public static void setupToolbar(final AppCompatActivity activity, String title) {
@@ -107,25 +104,4 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
         NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
-    private void loan(String url){
-        String[] urls = new String[]{url};
-        RentalPostTask task = new RentalPostTask(this);
-        task.execute(urls);
-    }
-
-    @Override
-    public void putSuccessful(Boolean successful) {
-        if(successful){
-            Toast.makeText(this, "Film has been added too your rentals!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "Adding film failed", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        Film f = films.get(position);
-        loan("http://10.0.2.2:8080/api/v1/rental/"+1+"/"+f.getInventory_id());
-    }
-
 }

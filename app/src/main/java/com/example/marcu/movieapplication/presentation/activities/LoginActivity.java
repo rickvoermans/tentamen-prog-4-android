@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.Claim;
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
     private final String tag = getClass().getSimpleName();
 
     public static final String JWT_STR = "jwt_str";
-    public static final String USER = "user";
+    public static final String USER = "sub";
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
     private Button buttonSignIn;
 
     private ProgressDialog dialog;
+    private TextView textViewRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,16 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid email address", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        textViewRegister = (TextView) findViewById(R.id.textViewNoAccountYet);
+        textViewRegister.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
