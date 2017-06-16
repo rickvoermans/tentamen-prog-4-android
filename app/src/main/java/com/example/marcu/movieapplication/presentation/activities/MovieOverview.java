@@ -67,7 +67,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
 
     public void getFilms(){
         FilmsGetTask filmsGetTask = new FilmsGetTask(this);
-        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/films/available",jwt};
+        String[] urls = new String[]{"https://programmeren-opdracht.herokuapp.com/api/v1/films/available",jwt};
         filmsGetTask.execute(urls);
     }
 
@@ -125,7 +125,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Film f = films.get(position);
-        loan("http://10.0.2.2:8080/api/v1/rental/"+1+"/"+f.getInventory_id());
+        loan("https://programmeren-opdracht.herokuapp.com/api/v1/rental/"+1+"/"+f.getInventory_id());
     }
 
 }
