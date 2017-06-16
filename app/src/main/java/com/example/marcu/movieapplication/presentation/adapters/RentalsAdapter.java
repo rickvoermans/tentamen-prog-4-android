@@ -1,11 +1,14 @@
 package com.example.marcu.movieapplication.presentation.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.domain.Film;
@@ -43,21 +46,24 @@ public class RentalsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+        View view = convertView;
 
-        if(convertView == null){
-            convertView = layoutInflater.inflate(R.layout.single_item_rental,parent,false);
-
+        if(view == null){
             viewHolder = new ViewHolder();
-            viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.textViewRelease = (TextView) convertView.findViewById(R.id.release_year);
-            viewHolder.textViewLength = (TextView) convertView.findViewById(R.id.length);
-            viewHolder.textViewRating = (TextView) convertView.findViewById(R.id.rating);
 
-            convertView.setTag(viewHolder);
+            view = layoutInflater.inflate(R.layout.single_item_rental,parent,false);
+
+            viewHolder.textViewTitle = (TextView) view.findViewById(R.id.title);
+            viewHolder.textViewRelease = (TextView) view.findViewById(R.id.release_year);
+            viewHolder.textViewLength = (TextView) view.findViewById(R.id.length);
+            viewHolder.textViewRating = (TextView) view.findViewById(R.id.rating);
+            viewHolder.removeRental = (ImageView) view.findViewById(R.id.delete_rental_id);
+
+            view.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) view.getTag();
         }
 
         Film f = films.get(position);
@@ -66,7 +72,16 @@ public class RentalsAdapter extends BaseAdapter {
         viewHolder.textViewRating.setText("Rating: "+f.getRating());
         viewHolder.textViewRelease.setText("Release Date: "+f.getReleaseyear());
 
-        return convertView;
+        viewHolder.removeRental.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Rental Adapter", "Removed: " + films.get(position).getTitle());
+                films.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
+        return view;
     }
 
     private static class ViewHolder {
@@ -74,5 +89,6 @@ public class RentalsAdapter extends BaseAdapter {
         TextView textViewRelease;
         TextView textViewLength;
         TextView textViewRating;
+        ImageView removeRental;
     }
 }
