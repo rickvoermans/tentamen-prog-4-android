@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menutop"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_movie_overview"
+            android:title="@string/movie_overview" />
+    </group>
+
+    <group
+        android:id="@+id/menubottom"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/navigation_logout" />
+    </group>
+
+</menu>
