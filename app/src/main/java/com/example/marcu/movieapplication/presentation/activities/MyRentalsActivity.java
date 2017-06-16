@@ -34,7 +34,7 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
  * Created by Wallaard on 16-6-2017.
  */
 
-public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener {
     private final String TAG = getClass().getSimpleName();
     private ArrayList<Film> films = new ArrayList<>();
     private RentalsAdapter rentalsAdapter;
@@ -61,10 +61,8 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
         jwt = prefs.getString(JWT_STR, "");
         user = prefs.getInt(USER, 0);
 
-        Log.i(TAG, "oncreate");
         getRentals();
         listViewFilms = (ListView) findViewById(R.id.rentalsListView);
-        listViewFilms.setOnItemClickListener(this);
         deleteRental = (ImageView)findViewById(R.id.delete_rental_id);
     }
 
@@ -110,11 +108,5 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
 
         NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Film film = films.get(position);
-        Toast.makeText(this, "Deleting rental.." + film.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
