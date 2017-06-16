@@ -64,7 +64,7 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
             httpConnection.setAllowUserInteraction(false);
             httpConnection.setInstanceFollowRedirects(true);
             httpConnection.setRequestMethod("GET");
-            httpConnection.setRequestProperty("Authorization", "Bearer " + params[1]);
+            httpConnection.setRequestProperty("X-Access-Token", params[1]);
 
             // Voer het request uit via de HTTP connectie op de URL
             httpConnection.connect();
