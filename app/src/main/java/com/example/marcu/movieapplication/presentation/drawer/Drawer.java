@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.presentation.activities.LoginActivity;
 import com.example.marcu.movieapplication.presentation.activities.MovieOverview;
+import com.example.marcu.movieapplication.presentation.activities.MyRentalsActivity;
 
 /**
  * Created by marcu on 6/16/2017.
@@ -31,6 +32,13 @@ public class Drawer {
             case R.id.nav_movie_overview:
                 intent = new Intent(context, MovieOverview.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            case R.id.nav_rentals:
+                Log.i("drawer", "rentals");
+                intent = new Intent(context, MyRentalsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
                 break;
             case R.id.nav_logout:
                 intent = new Intent(context, LoginActivity.class);
