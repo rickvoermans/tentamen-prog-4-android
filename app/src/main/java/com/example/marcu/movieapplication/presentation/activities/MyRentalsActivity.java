@@ -68,7 +68,7 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
 
     public void getRentals(){
         RentalsGetTask rentalsGetTask = new RentalsGetTask(this);
-        String[] urls = new String[]{"http://10.0.2.2:8080/api/v1/rental/1",jwt};
+        String[] urls = new String[]{"https://programmeren-opdracht.herokuapp.com/api/v1/rental/1",jwt};
         Log.i(TAG, "methode wordt aangeroepen");
         rentalsGetTask.execute(urls);
     }

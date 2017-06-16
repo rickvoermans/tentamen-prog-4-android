@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPostT
                 if(username.matches("")||password.matches("")){
                     Toast.makeText(RegisterActivity.this, "Vul alles in!", Toast.LENGTH_SHORT).show();
                 } else {
-                    register("http://10.0.2.2:8080/api/v1/register",username,password);
+                    register("https://programmeren-opdracht.herokuapp.com/api/v1/register",username,password);
                 }
             }
         });
