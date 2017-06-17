@@ -6,8 +6,9 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_movie_overview"
+            android:id="@+id/nav_home"
             android:title="@string/movie_overview" />
+
         <item
             android:id="@+id/nav_rentals"
             android:title="@string/rentals" />

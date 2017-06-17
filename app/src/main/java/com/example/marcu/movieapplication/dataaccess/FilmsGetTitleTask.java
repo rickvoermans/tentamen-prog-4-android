@@ -1,7 +1,7 @@
 package com.example.marcu.movieapplication.dataaccess;
 
 /**
- * Created by Wallaard on 16-6-2017.
+ * Created by MarcdenUil on 17-6-2017.
  */
 
 import android.os.AsyncTask;
@@ -22,15 +22,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Created by Wallaard on 14-6-2017.
- */
-
-public class FilmsGetTask extends AsyncTask<String, Void, String> {
+public class FilmsGetTitleTask extends AsyncTask<String, Void, String> {
     private final String TAG = getClass().getSimpleName();
     private OnFilmAvailable listener = null;
 
-    public FilmsGetTask(OnFilmAvailable listener) {
+    public FilmsGetTitleTask(OnFilmAvailable listener) {
         this.listener = listener;
     }
 
@@ -101,25 +97,9 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
                 JSONObject film = jsonArray.getJSONObject(i);
 
                 String title = film.getString("title");
-                int release = film.getInt("release_year");
-                int length = film.getInt("length");
-                String rating = film.getString("rating");
-                int inventoryid = film.getInt("inventory_id");
 
                 Film f = new Film();
-
-                if(film.isNull("rental_id")) {
-                    f.setStatus(true);
-                } else {
-                    f.setStatus(false);
-                }
-
                 f.setTitle(title);
-                f.setReleaseyear(release);
-                f.setLength(length);
-                f.setRating(rating);
-                f.setInventory_id(inventoryid);
-
 
                 listener.OnFilmAvailable(f);
 
@@ -157,3 +137,4 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
         return sb.toString();
     }
 }
+

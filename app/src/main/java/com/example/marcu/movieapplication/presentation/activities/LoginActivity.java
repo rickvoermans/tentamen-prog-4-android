@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
         Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
         JWT jwt = new JWT(response);
         Claim customer = jwt.getClaim(USER);
-        Intent intent = new Intent(getApplicationContext(), MovieOverview.class);
+        Intent intent = new Intent(getApplicationContext(), MovieOverviewTitles.class);
 
         Log.i(tag, "customer.asInt(): " + customer.asInt());
         editor.putString(JWT_STR, jwt.toString().replace("\"", ""));

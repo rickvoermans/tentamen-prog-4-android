@@ -10,13 +10,13 @@ public class Film {
     private int releaseyear;
     private String rating;
     private int inventory_id;
-    private int status;
+    private Boolean status;
 
-    public int getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int available) {
+    public void setStatus(Boolean available) {
         this.status = available;
     }
 

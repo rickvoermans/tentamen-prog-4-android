@@ -5,7 +5,7 @@
     <string name="login_password">Password</string>
     <string name="login_register">No account yet? register here</string>
 
-    <string name="movie_overview">Movie overview</string>
+    <string name="movie_overview">Home</string>
     <string name="navigation_logout">Logout</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
