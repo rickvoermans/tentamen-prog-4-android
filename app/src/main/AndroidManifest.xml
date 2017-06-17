@@ -19,9 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activities.MovieOverview"></activity>
-        <activity android:name=".presentation.activities.RegisterActivity"></activity>
-        <activity android:name=".presentation.activities.MyRentalsActivity"></activity>
+        <activity android:name=".presentation.activities.MovieOverview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marcu.movieapplication.presentation.activities.MovieOverviewTitles" />
+        </activity>
+        <activity android:name=".presentation.activities.RegisterActivity" />
+        <activity android:name=".presentation.activities.MyRentalsActivity" />
+        <activity android:name=".presentation.activities.MovieOverviewTitles"></activity>
     </application>
 
 </manifest>
