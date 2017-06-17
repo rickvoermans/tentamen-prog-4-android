@@ -54,6 +54,7 @@ public class FilmsAdapter extends BaseAdapter {
             viewHolder.textViewRelease = (TextView) convertView.findViewById(R.id.release_year);
             viewHolder.textViewLength = (TextView) convertView.findViewById(R.id.length);
             viewHolder.textViewRating = (TextView) convertView.findViewById(R.id.rating);
+            viewHolder.textViewAvailable = (TextView) convertView.findViewById(R.id.available);
 
             convertView.setTag(viewHolder);
         } else {
@@ -61,10 +62,11 @@ public class FilmsAdapter extends BaseAdapter {
         }
 
         Film f = films.get(position);
-        viewHolder.textViewTitle.setText("Title: "+f.getTitle());
-        viewHolder.textViewLength.setText("Length: "+f.getLength());
-        viewHolder.textViewRating.setText("Rating: "+f.getRating());
-        viewHolder.textViewRelease.setText("Release Date: "+f.getReleaseyear());
+        viewHolder.textViewTitle.setText("Title: " + f.getTitle());
+        viewHolder.textViewLength.setText("Length: " + f.getLength());
+        viewHolder.textViewRating.setText("Rating: " + f.getRating());
+        viewHolder.textViewRelease.setText("Release Date: " + f.getReleaseyear());
+        viewHolder.textViewAvailable.setText("Available: " + f.getStatus());
 
         return convertView;
     }
@@ -74,6 +76,7 @@ public class FilmsAdapter extends BaseAdapter {
         TextView textViewRelease;
         TextView textViewLength;
         TextView textViewRating;
+        TextView textViewAvailable;
     }
 }
 

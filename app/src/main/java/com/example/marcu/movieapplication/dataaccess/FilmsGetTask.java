@@ -105,6 +105,7 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
                 int length = film.getInt("length");
                 String rating = film.getString("rating");
                 int inventoryid = film.getInt("inventory_id");
+                int available = film.getInt("rental_id");
 
                 Film f = new Film();
                 f.setTitle(title);
@@ -112,7 +113,11 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
                 f.setLength(length);
                 f.setRating(rating);
                 f.setInventory_id(inventoryid);
-
+                if (available == 0 ){
+                    f.setStatus(0);
+                } else {
+                    f.setStatus(available);
+                }
                 listener.OnFilmAvailable(f);
 
             }

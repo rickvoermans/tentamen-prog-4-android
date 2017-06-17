@@ -10,6 +10,15 @@ public class Film {
     private int releaseyear;
     private String rating;
     private int inventory_id;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int available) {
+        this.status = available;
+    }
 
     public int getInventory_id() {
         return inventory_id;
