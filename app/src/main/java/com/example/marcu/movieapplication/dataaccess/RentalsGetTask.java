@@ -22,12 +22,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static com.example.marcu.movieapplication.dataaccess.FilmsGetTask.getStringFromInputStream;
+
 /**
  * Created by Wallaard on 14-6-2017.
  */
 
 public class RentalsGetTask extends AsyncTask<String, Void, String> {
-    private final String TAG = getClass().getSimpleName();
+    private final String tag = getClass().getSimpleName();
     private OnRentalAvailable listener = null;
 
     public RentalsGetTask(OnRentalAvailable listener) {
@@ -48,7 +50,7 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
         // Het resultaat dat we gaan retourneren
         String response = "";
 
-        Log.i(TAG, "doInBackground - " + personUrl);
+        Log.i(tag, "doInBackground - " + personUrl);
         try {
             // Maak een URL object
             URL url = new URL(personUrl);
@@ -74,15 +76,15 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
             if (responsCode == HttpURLConnection.HTTP_OK) {
                 inputStream = httpConnection.getInputStream();
                 response = getStringFromInputStream(inputStream);
-                // Log.i(TAG, "doInBackground response = " + response);
+                // Log.i(tag, "doInBackground response = " + response);
             } else {
-                Log.e(TAG, "Error, invalid response");
+                Log.e(tag, "Error, invalid response");
             }
         } catch (MalformedURLException e) {
-            Log.e(TAG, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
+            Log.e(tag, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
             return null;
         } catch (IOException e) {
-            Log.e("TAG", "doInBackground IOException " + e.getLocalizedMessage());
+            Log.e(tag, "doInBackground IOException " + e.getLocalizedMessage());
             return null;
         }
 
@@ -95,7 +97,7 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String response){
         try{
             JSONArray jsonArray = new JSONArray(response);
-            Log.e(TAG, "Response: "+response);
+            Log.e(tag, "Response: "+response);
 
             for (int i = 0; i < jsonArray.length();i++){
                 JSONObject film = jsonArray.getJSONObject(i);
@@ -117,35 +119,7 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(tag, e.getLocalizedMessage());
         }
-    }
-
-    private static String getStringFromInputStream(InputStream is) {
-
-        BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-
-        String line;
-        try {
-
-            br = new BufferedReader(new InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return sb.toString();
     }
 }
