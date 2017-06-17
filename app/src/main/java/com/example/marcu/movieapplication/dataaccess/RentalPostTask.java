@@ -31,13 +31,13 @@ public class RentalPostTask extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... params) {
 
         int responseCode;
-        String balanceUrl = params[0];
+        String rentalPostUrl = params[0];
 
         Boolean response = null;
 
-        Log.i(TAG, "doInBackground - " + balanceUrl);
+        Log.i(TAG, "doInBackground - " + rentalPostUrl);
         try {
-            URL url = new URL(balanceUrl);
+            URL url = new URL(rentalPostUrl);
             URLConnection urlConnection = url.openConnection();
 
             if (!(urlConnection instanceof HttpURLConnection)) {

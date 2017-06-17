@@ -50,7 +50,6 @@ public class RentalDeleteTask extends AsyncTask<String, Void, Boolean> {
             httpConnection.setRequestMethod("DELETE");
             httpConnection.setRequestProperty("X-Access-Token", params[1]);
 
-
             DataOutputStream localDataOutputStream = new DataOutputStream(httpConnection.getOutputStream());
             localDataOutputStream.flush();
             localDataOutputStream.close();

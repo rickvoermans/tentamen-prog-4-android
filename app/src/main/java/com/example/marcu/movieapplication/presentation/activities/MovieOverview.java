@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
@@ -34,7 +32,6 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
 
 public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnFilmAvailable, RentalPostTask.PutSuccessListener, AdapterView.OnItemClickListener,NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView textViewUserId;
     private String jwt;
     private int user;
     private SharedPreferences prefs;
