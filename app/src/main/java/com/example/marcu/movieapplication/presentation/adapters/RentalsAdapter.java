@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marcu.movieapplication.R;
-import com.example.marcu.movieapplication.dataaccess.RentalDeleteTask;
+import com.example.marcu.movieapplication.dataaccess.RentalPutTask;
 import com.example.marcu.movieapplication.domain.Film;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
  * Created by Wallaard on 16-6-2017.
  */
 
-public class RentalsAdapter extends BaseAdapter implements RentalDeleteTask.SuccessListener{
+public class RentalsAdapter extends BaseAdapter implements RentalPutTask.PutSuccessListener{
     private Context context;
     private LayoutInflater layoutInflater;
     private ArrayList<Film> films;
@@ -89,7 +89,7 @@ public class RentalsAdapter extends BaseAdapter implements RentalDeleteTask.Succ
             @Override
             public void onClick(View v) {
                 Log.i("Rental Adapter", "Removed: " + films.get(position).getTitle());
-                deleteRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
+                putRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
                 films.remove(position);
                 notifyDataSetChanged();
             }
@@ -106,18 +106,18 @@ public class RentalsAdapter extends BaseAdapter implements RentalDeleteTask.Succ
         ImageView removeRental;
     }
 
-    private void deleteRental(String apiUrl) {
+    private void putRental(String apiUrl) {
         String[] urls = new String[]{apiUrl, jwt};
-        RentalDeleteTask task = new RentalDeleteTask(this);
+        RentalPutTask task = new RentalPutTask(this);
         task.execute(urls);
     }
 
     @Override
-    public void successfulDeleted(Boolean successful) {
+    public void putSuccessful(Boolean successful) {
         if (successful) {
-            Log.i("RentalsAdapter", "Product removed");
+            Log.i("RentalsAdapter", "Rental removed");
         } else {
-            Toast.makeText(context, "Product couldn't be removed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Rental couldn't be removed", Toast.LENGTH_SHORT).show();
         }
     }
 }
