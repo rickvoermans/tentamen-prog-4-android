@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPostT
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Registratie mislukt!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Email-adres bestaat al", Toast.LENGTH_LONG).show();
         }
     }
 }
