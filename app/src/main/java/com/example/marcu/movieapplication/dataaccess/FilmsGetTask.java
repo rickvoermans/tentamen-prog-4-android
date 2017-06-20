@@ -35,7 +35,7 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
     }
 
     public interface OnFilmAvailable{
-        void OnFilmAvailable(Film film);
+        void onFilmAvailable(Film film);
     }
 
     @Override
@@ -74,7 +74,6 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
             if (responsCode == HttpURLConnection.HTTP_OK) {
                 inputStream = httpConnection.getInputStream();
                 response = getStringFromInputStream(inputStream);
-                // Log.i(tag, "doInBackground response = " + response);
             } else {
                 Log.e(tag, "Error, invalid response");
             }
@@ -82,7 +81,7 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
             Log.e(tag, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
             return null;
         } catch (IOException e) {
-            Log.e("tag", "doInBackground IOException " + e.getLocalizedMessage());
+            Log.e(tag, "doInBackground IOException " + e.getLocalizedMessage());
             return null;
         }
 
@@ -108,8 +107,9 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
 
                 Film f = new Film();
 
-                if(film.isNull("rental_id")) {
+                if(film.isNull("rental_date")) {
                     f.setStatus(true);
+                    Log.i(tag, "1e if");
                 } else {
                     f.setStatus(false);
                 }
@@ -118,40 +118,30 @@ public class FilmsGetTask extends AsyncTask<String, Void, String> {
                 f.setReleaseyear(release);
                 f.setLength(length);
                 f.setRating(rating);
-                f.setInventory_id(inventoryid);
+                f.setInventoryid(inventoryid);
 
 
-                listener.OnFilmAvailable(f);
+                listener.onFilmAvailable(f);
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(tag, "JSON exception" + e.getLocalizedMessage());
         }
     }
 
     public static String getStringFromInputStream(InputStream is) {
 
-        BufferedReader br = null;
         StringBuilder sb = new StringBuilder();
-
         String line;
-        try {
-
-            br = new BufferedReader(new InputStreamReader(is));
+        try (
+                BufferedReader br = new BufferedReader(new InputStreamReader(is))
+        ) {
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-
+            br.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            Log.e("", "getStringFromInputStream " + e.getLocalizedMessage());
         }
 
         return sb.toString();

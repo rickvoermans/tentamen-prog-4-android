@@ -70,12 +70,13 @@ public class RegisterPostTask extends AsyncTask<String, Void, Boolean> {
             Log.e(tag, "doInBackground IOException " + e.getLocalizedMessage());
             return null;
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(tag, "JSON execption" + e.getLocalizedMessage());
         }
 
         return response;
     }
 
+    @Override
     protected void onPostExecute(Boolean response) {
         listener.putSuccessful(response);
     }

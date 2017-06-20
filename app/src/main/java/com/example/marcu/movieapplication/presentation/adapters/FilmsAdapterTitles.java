@@ -1,6 +1,5 @@
 package com.example.marcu.movieapplication.presentation.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +9,17 @@ import android.widget.TextView;
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.domain.Film;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MarcdenUil on 17-6-2017.
  */
 
 public class FilmsAdapterTitles extends BaseAdapter {
-    private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<Film> films;
+    private List<Film> films;
 
-    public FilmsAdapterTitles(Context context, LayoutInflater layoutInflater, ArrayList<Film> films) {
-        this.context = context;
+    public FilmsAdapterTitles(LayoutInflater layoutInflater, List<Film> films) {
         this.layoutInflater = layoutInflater;
         this.films = films;
     }

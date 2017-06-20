@@ -16,7 +16,7 @@ import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.dataaccess.RentalPutTask;
 import com.example.marcu.movieapplication.domain.Film;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.JWT_STR;
 import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.USER;
@@ -28,11 +28,11 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
 public class RentalsAdapter extends BaseAdapter implements RentalPutTask.PutSuccessListener{
     private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<Film> films;
+    private List<Film> films;
     private String jwt;
     private final int user;
 
-    public RentalsAdapter(Context context, LayoutInflater layoutInflater, ArrayList<Film> films) {
+    public RentalsAdapter(Context context, LayoutInflater layoutInflater, List<Film> films) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.films = films;
@@ -89,7 +89,7 @@ public class RentalsAdapter extends BaseAdapter implements RentalPutTask.PutSucc
             @Override
             public void onClick(View v) {
                 Log.i("Rental Adapter", "Removed: " + films.get(position).getTitle());
-                putRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventory_id());
+                putRental("https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user + "/" + films.get(position).getInventoryid());
                 films.remove(position);
                 notifyDataSetChanged();
             }

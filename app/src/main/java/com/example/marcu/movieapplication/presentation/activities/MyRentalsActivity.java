@@ -10,9 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.dataaccess.RentalsGetTask;
@@ -32,16 +30,11 @@ import static com.example.marcu.movieapplication.presentation.activities.MovieOv
  */
 
 public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTask.OnRentalAvailable, NavigationView.OnNavigationItemSelectedListener {
-    private final String TAG = getClass().getSimpleName();
+    private final String tag = getClass().getSimpleName();
     private ArrayList<Film> films = new ArrayList<>();
-    private RentalsAdapter rentalsAdapter;
     private ListView listViewFilms;
-
-    private TextView textViewUserId;
-    private ImageView deleteRental;
     private String jwt;
     private int user;
-    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,26 +47,25 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
         setupToolbar(this, "My rentals");
         setupDrawer(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         jwt = prefs.getString(JWT_STR, "");
         user = prefs.getInt(USER, 0);
 
         getRentals();
         listViewFilms = (ListView) findViewById(R.id.rentalsListView);
-        deleteRental = (ImageView)findViewById(R.id.delete_rental_id);
     }
 
     public void getRentals(){
         RentalsGetTask rentalsGetTask = new RentalsGetTask(this);
         String[] urls = new String[]{"https://programmeren-opdracht.herokuapp.com/api/v1/rental/" + user,jwt};
-        Log.i(TAG, "methode wordt aangeroepen");
+        Log.i(tag, "methode wordt aangeroepen");
         rentalsGetTask.execute(urls);
     }
 
     @Override
-    public void OnRentalAvailable(Film film) {
+    public void onRentalAvailable(Film film) {
         films.add(film);
-        rentalsAdapter = new RentalsAdapter(this,getLayoutInflater(),films);
+        RentalsAdapter rentalsAdapter = new RentalsAdapter(this,getLayoutInflater(),films);
         listViewFilms.setAdapter(rentalsAdapter);
     }
 
@@ -82,7 +74,7 @@ public class MyRentalsActivity extends AppCompatActivity implements RentalsGetTa
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        new Drawer(getApplicationContext(), id, jwt, user);
+        new Drawer(getApplicationContext(), id, user);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

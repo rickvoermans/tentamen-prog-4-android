@@ -9,7 +9,7 @@ public class Film {
     private int length;
     private int releaseyear;
     private String rating;
-    private int inventory_id;
+    private int inventoryid;
     private Boolean status;
 
     public Boolean getStatus() {
@@ -20,12 +20,12 @@ public class Film {
         this.status = available;
     }
 
-    public int getInventory_id() {
-        return inventory_id;
+    public int getInventoryid() {
+        return inventoryid;
     }
 
-    public void setInventory_id(int inventory_id) {
-        this.inventory_id = inventory_id;
+    public void setInventoryid(int inventoryid) {
+        this.inventoryid = inventoryid;
     }
 
     public String getTitle() {

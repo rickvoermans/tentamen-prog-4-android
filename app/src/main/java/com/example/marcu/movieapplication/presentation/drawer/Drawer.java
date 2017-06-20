@@ -8,12 +8,10 @@ import android.util.Log;
 
 import com.example.marcu.movieapplication.R;
 import com.example.marcu.movieapplication.presentation.activities.LoginActivity;
-import com.example.marcu.movieapplication.presentation.activities.MovieOverview;
 import com.example.marcu.movieapplication.presentation.activities.MovieOverviewTitles;
 import com.example.marcu.movieapplication.presentation.activities.MyRentalsActivity;
 
 import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.JWT_STR;
-import static com.example.marcu.movieapplication.presentation.activities.LoginActivity.USER;
 
 /**
  * Created by marcu on 6/16/2017.
@@ -22,17 +20,15 @@ import static com.example.marcu.movieapplication.presentation.activities.LoginAc
 public class Drawer {
     private final String tag = getClass().getSimpleName();
 
-    private Context context;
     private Intent intent;
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-    public Drawer(Context context, int id, String jwt, int user) {
+    public Drawer(Context context, int id, int user) {
 
         Log.i(tag, "user: " + user);
 
-        this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         editor = prefs.edit();
 

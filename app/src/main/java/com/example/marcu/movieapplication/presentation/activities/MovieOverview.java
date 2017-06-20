@@ -34,10 +34,8 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
 
     private String jwt;
     private int user;
-    private SharedPreferences prefs;
 
     private ArrayList<Film> films = new ArrayList<>();
-    private FilmsAdapter filmsAdapter;
     private ListView listViewFilms;
     private String title;
 
@@ -53,7 +51,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
         Intent mIntent = getIntent();
         title = mIntent.getStringExtra("TITLE");
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         jwt = prefs.getString(JWT_STR, "");
         user = prefs.getInt(USER, 0);
 
@@ -71,9 +69,9 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     }
 
     @Override
-    public void OnFilmAvailable(Film film) {
+    public void onFilmAvailable(Film film) {
         films.add(film);
-        filmsAdapter = new FilmsAdapter(this,getLayoutInflater(),films);
+        FilmsAdapter filmsAdapter = new FilmsAdapter(getLayoutInflater(),films);
         listViewFilms.setAdapter(filmsAdapter);
     }
 
@@ -88,7 +86,7 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        new Drawer(getApplicationContext(), id, jwt, user);
+        new Drawer(getApplicationContext(), id, user);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -127,6 +125,6 @@ public class MovieOverview extends AppCompatActivity implements FilmsGetTask.OnF
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Film f = films.get(position);
-        loan("https://programmeren-opdracht.herokuapp.com/api/v1/rental/"+user+"/"+f.getInventory_id());
+        loan("https://programmeren-opdracht.herokuapp.com/api/v1/rental/"+user+"/"+f.getInventoryid());
     }
 }

@@ -18,7 +18,8 @@ import com.example.marcu.movieapplication.dataaccess.RegisterPostTask;
 public class RegisterActivity extends AppCompatActivity implements RegisterPostTask.PutSuccessListener {
     private EditText editTextUser;
     private EditText editTextPassword;
-    private String username,password;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

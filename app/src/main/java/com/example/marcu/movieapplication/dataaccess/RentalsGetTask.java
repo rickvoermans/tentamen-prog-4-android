@@ -12,11 +12,8 @@ import com.example.marcu.movieapplication.domain.Film;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,7 +34,7 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
     }
 
     public interface OnRentalAvailable{
-        void OnRentalAvailable(Film film);
+        void onRentalAvailable(Film film);
     }
 
     @Override
@@ -76,7 +73,6 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
             if (responsCode == HttpURLConnection.HTTP_OK) {
                 inputStream = httpConnection.getInputStream();
                 response = getStringFromInputStream(inputStream);
-                // Log.i(tag, "doInBackground response = " + response);
             } else {
                 Log.e(tag, "Error, invalid response");
             }
@@ -106,16 +102,16 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
                 int release = film.getInt("release_year");
                 int length = film.getInt("length");
                 String rating = film.getString("rating");
-                int inventory_id = film.getInt("inventory_id");
+                int inventoryid = film.getInt("inventory_id");
 
                 Film f = new Film();
                 f.setTitle(title);
                 f.setReleaseyear(release);
                 f.setLength(length);
                 f.setRating(rating);
-                f.setInventory_id(inventory_id);
+                f.setInventoryid(inventoryid);
 
-                listener.OnRentalAvailable(f);
+                listener.onRentalAvailable(f);
 
             }
         } catch (JSONException e) {

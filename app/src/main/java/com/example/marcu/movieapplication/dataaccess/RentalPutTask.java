@@ -5,10 +5,6 @@ package com.example.marcu.movieapplication.dataaccess;
  */
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -22,7 +18,7 @@ import java.net.URLConnection;
 
 public class RentalPutTask extends AsyncTask<String, Void, Boolean> {
 
-    private final String TAG = getClass().getSimpleName();
+    private final String tag = getClass().getSimpleName();
 
     private PutSuccessListener listener;
 
@@ -38,7 +34,7 @@ public class RentalPutTask extends AsyncTask<String, Void, Boolean> {
 
         Boolean response = null;
 
-        Log.i(TAG, "doInBackground - " + rentalPostUrl);
+        Log.i(tag, "doInBackground - " + rentalPostUrl);
         try {
             URL url = new URL(rentalPostUrl);
             URLConnection urlConnection = url.openConnection();
@@ -61,16 +57,17 @@ public class RentalPutTask extends AsyncTask<String, Void, Boolean> {
             responseCode = httpConnection.getResponseCode();
             response = (responseCode == HttpURLConnection.HTTP_OK);
         } catch (MalformedURLException e) {
-            Log.e(TAG, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
+            Log.e(tag, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
             return null;
         } catch (IOException e) {
-            Log.e(TAG, "doInBackground IOException " + e.getLocalizedMessage());
+            Log.e(tag, "doInBackground IOException " + e.getLocalizedMessage());
             return null;
         }
 
         return response;
     }
 
+    @Override
     protected void onPostExecute(Boolean response) {
         listener.putSuccessful(response);
     }

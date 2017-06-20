@@ -32,10 +32,8 @@ public class MovieOverviewTitles extends AppCompatActivity implements AdapterVie
 
     private String jwt;
     private int user;
-    private SharedPreferences prefs;
 
     private ArrayList<Film> films = new ArrayList<>();
-    private FilmsAdapterTitles filmsAdapter;
     private ListView listViewFilms;
 
     @Override
@@ -49,7 +47,7 @@ public class MovieOverviewTitles extends AppCompatActivity implements AdapterVie
         setupToolbar(this, "Home");
         setupDrawer(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         jwt = prefs.getString(JWT_STR, "");
         user = prefs.getInt(USER, 0);
 
@@ -67,9 +65,9 @@ public class MovieOverviewTitles extends AppCompatActivity implements AdapterVie
     }
 
     @Override
-    public void OnFilmAvailable(Film film) {
+    public void onFilmAvailable(Film film) {
         films.add(film);
-        filmsAdapter = new FilmsAdapterTitles(this, getLayoutInflater(),films);
+        FilmsAdapterTitles filmsAdapter = new FilmsAdapterTitles(getLayoutInflater(),films);
         listViewFilms.setAdapter(filmsAdapter);
     }
 
@@ -77,7 +75,7 @@ public class MovieOverviewTitles extends AppCompatActivity implements AdapterVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        new Drawer(getApplicationContext(), id, jwt, user);
+        new Drawer(getApplicationContext(), id, user);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -13,10 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +31,7 @@ public class FilmsGetTitleTask extends AsyncTask<String, Void, String> {
     }
 
     public interface OnFilmAvailable{
-        void OnFilmAvailable(Film film);
+        void onFilmAvailable(Film film);
     }
 
     @Override
@@ -72,7 +70,6 @@ public class FilmsGetTitleTask extends AsyncTask<String, Void, String> {
             if (responsCode == HttpURLConnection.HTTP_OK) {
                 inputStream = httpConnection.getInputStream();
                 response = getStringFromInputStream(inputStream);
-                // Log.i(tag, "doInBackground response = " + response);
             } else {
                 Log.e(tag, "Error, invalid response");
             }
@@ -103,11 +100,11 @@ public class FilmsGetTitleTask extends AsyncTask<String, Void, String> {
                 Film f = new Film();
                 f.setTitle(title);
 
-                listener.OnFilmAvailable(f);
+                listener.onFilmAvailable(f);
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(tag, "JSON execption" + e.getLocalizedMessage());
         }
     }
 }
