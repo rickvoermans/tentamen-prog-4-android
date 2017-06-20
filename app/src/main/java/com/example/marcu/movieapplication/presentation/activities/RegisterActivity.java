@@ -18,7 +18,8 @@ import com.example.marcu.movieapplication.dataaccess.RegisterPostTask;
 public class RegisterActivity extends AppCompatActivity implements RegisterPostTask.PutSuccessListener {
     private EditText editTextUser;
     private EditText editTextPassword;
-    private String username,password;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPostT
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Registratie mislukt!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Email-adres bestaat al", Toast.LENGTH_LONG).show();
         }
     }
 }

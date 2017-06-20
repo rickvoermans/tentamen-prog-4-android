@@ -1,7 +1,7 @@
 package com.example.marcu.movieapplication.dataaccess;
 
 /**
- * Created by Wallaard on 16-6-2017.
+ * Created by MarcdenUil on 17-6-2017.
  */
 
 import android.os.AsyncTask;
@@ -12,6 +12,7 @@ import com.example.marcu.movieapplication.domain.Film;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -21,20 +22,16 @@ import java.net.URLConnection;
 
 import static com.example.marcu.movieapplication.dataaccess.FilmsGetTask.getStringFromInputStream;
 
-/**
- * Created by Wallaard on 14-6-2017.
- */
-
-public class RentalsGetTask extends AsyncTask<String, Void, String> {
+public class FilmsGetTitleTask extends AsyncTask<String, Void, String> {
     private final String tag = getClass().getSimpleName();
-    private OnRentalAvailable listener = null;
+    private OnFilmAvailable listener = null;
 
-    public RentalsGetTask(OnRentalAvailable listener) {
+    public FilmsGetTitleTask(OnFilmAvailable listener) {
         this.listener = listener;
     }
 
-    public interface OnRentalAvailable{
-        void onRentalAvailable(Film film);
+    public interface OnFilmAvailable{
+        void onFilmAvailable(Film film);
     }
 
     @Override
@@ -80,7 +77,7 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
             Log.e(tag, "doInBackground MalformedURLEx " + e.getLocalizedMessage());
             return null;
         } catch (IOException e) {
-            Log.e(tag, "doInBackground IOException " + e.getLocalizedMessage());
+            Log.e("tag", "doInBackground IOException " + e.getLocalizedMessage());
             return null;
         }
 
@@ -99,23 +96,16 @@ public class RentalsGetTask extends AsyncTask<String, Void, String> {
                 JSONObject film = jsonArray.getJSONObject(i);
 
                 String title = film.getString("title");
-                int release = film.getInt("release_year");
-                int length = film.getInt("length");
-                String rating = film.getString("rating");
-                int inventoryid = film.getInt("inventory_id");
 
                 Film f = new Film();
                 f.setTitle(title);
-                f.setReleaseyear(release);
-                f.setLength(length);
-                f.setRating(rating);
-                f.setInventoryid(inventoryid);
 
-                listener.onRentalAvailable(f);
+                listener.onFilmAvailable(f);
 
             }
         } catch (JSONException e) {
-            Log.e(tag, e.getLocalizedMessage());
+            Log.e(tag, "JSON execption" + e.getLocalizedMessage());
         }
     }
 }
+

@@ -26,27 +26,24 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
     public static final String JWT_STR = "jwt_str";
     public static final String USER = "sub";
 
-    private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonSignIn;
 
     private ProgressDialog dialog;
-    private TextView textViewRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         editor = prefs.edit();
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmailaddress);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
+        Button buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
             }
         });
 
-        textViewRegister = (TextView) findViewById(R.id.textViewNoAccountYet);
+        TextView textViewRegister = (TextView) findViewById(R.id.textViewNoAccountYet);
         textViewRegister.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -94,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityReq
         Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
         JWT jwt = new JWT(response);
         Claim customer = jwt.getClaim(USER);
-        Intent intent = new Intent(getApplicationContext(), MovieOverview.class);
+        Intent intent = new Intent(getApplicationContext(), MovieOverviewTitles.class);
 
         Log.i(tag, "customer.asInt(): " + customer.asInt());
         editor.putString(JWT_STR, jwt.toString().replace("\"", ""));
